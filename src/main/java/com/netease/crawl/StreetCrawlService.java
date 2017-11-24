@@ -13,7 +13,9 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,21 +37,34 @@ public class StreetCrawlService {
 		// 初始页面 解析省份
 		Document doc = null;
 		try {
-//			doc = Jsoup.parse(new URL(initUrl), 100000);
+			HttpURLConnection connection = (HttpURLConnection)new URL(initUrl).openConnection();
+			connection.setConnectTimeout(80000);
+			connection.addRequestProperty("Connection", "close");
+			connection.setReadTimeout(8000);
+			connection.setUseCaches(Boolean.FALSE);
+			doc = Jsoup.parse(connection.getInputStream(), "GBK", initUrl);
 //			doc = HttpUtils.httpGet(initUrl);
-			doc = Jsoup.connect(initUrl).timeout(100000).method(Connection.Method.GET).execute().charset("gb2312").parse();
-			Thread.sleep(3000);
+//			doc = Jsoup.connect(initUrl).timeout(100000).get();
+//			doc.charset(Charset.forName("utf-8"));
+			Thread.sleep(2000);
 		} catch (Exception e) {
 //			e.printStackTrace();
 //			doc = Jsoup.parse(new URL(initUrl), 100000);
 //			doc = HttpUtils.httpGet(initUrl);
-			doc = Jsoup.connect(initUrl).timeout(100000).method(Connection.Method.GET).execute().charset("gb2312").parse();
+//			doc = Jsoup.connect(initUrl).timeout(100000).get();
+//			doc.charset(Charset.forName("utf-8"));
+			HttpURLConnection connection = (HttpURLConnection)new URL(initUrl).openConnection();
+			connection.setConnectTimeout(80000);
+			connection.addRequestProperty("Connection", "close");
+			connection.setReadTimeout(8000);
+			connection.setUseCaches(Boolean.FALSE);
+			doc = Jsoup.parse(connection.getInputStream(), "GBK", initUrl);
 		}
 //		String content = HttpUtils.httpGet(initUrl);
 //		System.out.println(doc.html());
 
 //		Elements elements = Jsoup.parse(doc.html()).select("tr .provincetr");
-		Element element = Jsoup.parse(doc.html()).select("tr .provincetr").select("td").get(4);
+		Element element = Jsoup.parse(doc.html()).select("tr .provincetr").select("td").get(0);
 //		System.out.println(elements.html());
 //		if (null != elements) {
 //			for (Element element : elements) {
@@ -61,7 +76,7 @@ public class StreetCrawlService {
 //			}
 //		}
 //		System.out.println(JSON.toJSONString(provinces));
-		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("D:/gov.txt", true)));
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("D:/government.txt", true)));
 //		writer.write(JSON.toJSONString(provinces));
 //		writer.close();
 		if (CollectionUtils.isNotEmpty(provinces)) {
@@ -112,14 +127,29 @@ public class StreetCrawlService {
 			try {
 //				doc = Jsoup.parse(new URL(province.getUrl()), 100000);
 //				doc = HttpUtils.httpGet(province.getUrl());
-				doc = Jsoup.connect(province.getUrl()).timeout(100000).method(Connection.Method.GET).execute().charset("gb2312").parse();
-				Thread.sleep(5000);
+//				doc = Jsoup.connect(province.getUrl()).timeout(100000).get();
+//				doc.charset(Charset.forName("utf-8"));
+				HttpURLConnection connection = (HttpURLConnection)new URL(province.getUrl()).openConnection();
+				connection.setConnectTimeout(80000);
+				connection.addRequestProperty("Connection", "close");
+				connection.setReadTimeout(8000);
+				connection.setUseCaches(Boolean.FALSE);
+				doc = Jsoup.parse(connection.getInputStream(), "GBK", province.getUrl());
+
+				Thread.sleep(2000);
 			} catch (Exception e) {
 //				e.printStackTrace();
 				System.out.println(province.getUrl());
 //				doc = Jsoup.parse(new URL(province.getUrl()), 100000);
 //				doc = HttpUtils.httpGet(province.getUrl());
-				doc = Jsoup.connect(province.getUrl()).timeout(100000).method(Connection.Method.GET).execute().charset("gb2312").parse();
+//				doc = Jsoup.connect(province.getUrl()).timeout(100000).get();
+//				doc.charset(Charset.forName("utf-8"));
+				HttpURLConnection connection = (HttpURLConnection)new URL(province.getUrl()).openConnection();
+				connection.setConnectTimeout(80000);
+				connection.addRequestProperty("Connection", "close");
+				connection.setReadTimeout(8000);
+				connection.setUseCaches(Boolean.FALSE);
+				doc = Jsoup.parse(connection.getInputStream(), "GBK", province.getUrl());
 			}
 //			String content = HttpUtils.httpGet(province.getUrl());
 
@@ -157,14 +187,28 @@ public class StreetCrawlService {
 			try {
 //				doc = Jsoup.parse(new URL(city.getUrl()), 100000);
 //				doc = HttpUtils.httpGet(city.getUrl());
-				doc = Jsoup.connect(city.getUrl()).timeout(100000).method(Connection.Method.GET).execute().charset("gb2312").parse();
-				Thread.sleep(5000);
+//				doc = Jsoup.connect(city.getUrl()).timeout(100000).get();
+//				doc.charset(Charset.forName("utf-8"));
+				HttpURLConnection connection = (HttpURLConnection)new URL(city.getUrl()).openConnection();
+				connection.setConnectTimeout(80000);
+				connection.addRequestProperty("Connection", "close");
+				connection.setReadTimeout(8000);
+				connection.setUseCaches(Boolean.FALSE);
+				doc = Jsoup.parse(connection.getInputStream(), "GBK", city.getUrl());
+				Thread.sleep(2000);
 			} catch (Exception e) {
 //				e.printStackTrace();
 				System.out.println(city.getUrl());
 //				doc = Jsoup.parse(new URL(city.getUrl()), 100000);
 //				doc = HttpUtils.httpGet(city.getUrl());
-				doc = Jsoup.connect(city.getUrl()).timeout(100000).method(Connection.Method.GET).execute().charset("gb2312").parse();
+//				doc = Jsoup.connect(city.getUrl()).timeout(100000).get();
+//				doc.charset(Charset.forName("utf-8"));
+				HttpURLConnection connection = (HttpURLConnection)new URL(city.getUrl()).openConnection();
+				connection.setConnectTimeout(80000);
+				connection.addRequestProperty("Connection", "close");
+				connection.setReadTimeout(8000);
+				connection.setUseCaches(Boolean.FALSE);
+				doc = Jsoup.parse(connection.getInputStream(), "GBK", city.getUrl());
 			}
 //				String content = HttpUtils.httpGet(city.getUrl());
 
@@ -202,14 +246,28 @@ public class StreetCrawlService {
 			try {
 //				doc = Jsoup.parse(new URL(county.getUrl()), 100000);
 //				doc = HttpUtils.httpGet(county.getUrl());
-				doc = Jsoup.connect(county.getUrl()).timeout(100000).method(Connection.Method.GET).execute().charset("gb2312").parse();
-				Thread.sleep(5000);
+//				doc = Jsoup.connect(county.getUrl()).timeout(100000).get();
+//				doc.charset(Charset.forName("utf-8"));
+				HttpURLConnection connection = (HttpURLConnection)new URL(county.getUrl()).openConnection();
+				connection.setConnectTimeout(80000);
+				connection.addRequestProperty("Connection", "close");
+				connection.setReadTimeout(8000);
+				connection.setUseCaches(Boolean.FALSE);
+				doc = Jsoup.parse(connection.getInputStream(), "GBK", county.getUrl());
+				Thread.sleep(2000);
 			} catch (Exception e) {
 //				e.printStackTrace();
 				System.out.println(county.getUrl());
 //				doc = Jsoup.parse(new URL(county.getUrl()), 100000);
 //				doc = HttpUtils.httpGet(county.getUrl());
-				doc = Jsoup.connect(county.getUrl()).timeout(100000).method(Connection.Method.GET).execute().charset("gb2312").parse();
+//				doc = Jsoup.connect(county.getUrl()).timeout(100000).get();
+//				doc.charset(Charset.forName("utf-8"));
+				HttpURLConnection connection = (HttpURLConnection)new URL(county.getUrl()).openConnection();
+				connection.setConnectTimeout(80000);
+				connection.addRequestProperty("Connection", "close");
+				connection.setReadTimeout(8000);
+				connection.setUseCaches(Boolean.FALSE);
+				doc = Jsoup.parse(connection.getInputStream(), "GBK", county.getUrl());
 			}
 //			String content = HttpUtils.httpGet(county.getUrl());
 			if (null != doc) {
@@ -243,21 +301,42 @@ public class StreetCrawlService {
 			try {
 //				doc = Jsoup.parse(new URL(town.getUrl()), 100000);
 //				doc = HttpUtils.httpGet(town.getUrl());
-				doc = Jsoup.connect(town.getUrl()).timeout(100000).method(Connection.Method.GET).execute().charset("gb2312").parse();
-				Thread.sleep(5000);
+//				doc = Jsoup.connect(town.getUrl()).timeout(100000).get();
+//				doc.charset(Charset.forName("utf-8"));
+				HttpURLConnection connection = (HttpURLConnection)new URL(town.getUrl()).openConnection();
+				connection.setConnectTimeout(80000);
+				connection.addRequestProperty("Connection", "close");
+				connection.setReadTimeout(8000);
+				connection.setUseCaches(Boolean.FALSE);
+				doc = Jsoup.parse(connection.getInputStream(), "GBK", town.getUrl());
+				Thread.sleep(2000);
 			} catch (Exception e) {
 //				e.printStackTrace();
 				System.out.println(town.getUrl());
 				try {
 //					doc = Jsoup.parse(new URL(town.getUrl()), 100000);
 //					doc = HttpUtils.httpGet(town.getUrl());
-					doc = Jsoup.connect(town.getUrl()).timeout(100000).method(Connection.Method.GET).execute().charset("gb2312").parse();
-					Thread.sleep(5000);
+//					doc = Jsoup.connect(town.getUrl()).timeout(100000).get();
+//					doc.charset(Charset.forName("utf-8"));
+					HttpURLConnection connection = (HttpURLConnection)new URL(town.getUrl()).openConnection();
+					connection.setConnectTimeout(80000);
+					connection.addRequestProperty("Connection", "close");
+					connection.setReadTimeout(8000);
+					connection.setUseCaches(Boolean.FALSE);
+					doc = Jsoup.parse(connection.getInputStream(), "GBK", town.getUrl());
+					Thread.sleep(2000);
 				} catch (Exception e1) {
 //					e1.printStackTrace();
 //					doc = Jsoup.parse(new URL(town.getUrl()), 100000);
 //					doc = HttpUtils.httpGet(town.getUrl());
-					doc = Jsoup.connect(town.getUrl()).timeout(100000).method(Connection.Method.GET).execute().charset("gb2312").parse();
+//					doc = Jsoup.connect(town.getUrl()).timeout(100000).get();
+//					doc.charset(Charset.forName("utf-8"));
+					HttpURLConnection connection = (HttpURLConnection)new URL(town.getUrl()).openConnection();
+					connection.setConnectTimeout(80000);
+					connection.addRequestProperty("Connection", "close");
+					connection.setReadTimeout(8000);
+					connection.setUseCaches(Boolean.FALSE);
+					doc = Jsoup.parse(connection.getInputStream(), "GBK", town.getUrl());
 				}
 			}
 			if (null != doc) {

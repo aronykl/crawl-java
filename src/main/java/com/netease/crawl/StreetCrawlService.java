@@ -64,7 +64,7 @@ public class StreetCrawlService {
 //		System.out.println(doc.html());
 
 //		Elements elements = Jsoup.parse(doc.html()).select("tr .provincetr");
-		Element element = Jsoup.parse(doc.html()).select("tr .provincetr").select("td").get(0);
+		Element element = Jsoup.parse(doc.html()).select("tr .provincetr").select("td").get(7);
 //		System.out.println(elements.html());
 //		if (null != elements) {
 //			for (Element element : elements) {
